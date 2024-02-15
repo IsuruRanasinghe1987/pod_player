@@ -206,8 +206,8 @@ class _PodVideoController extends _PodUiController {
               SystemUiMode.manual,
               overlays: SystemUiOverlay.values,
             ),
-          ]
-        ]);
+          ],
+        ],);
       }
 
       if (enablePop) _exitFullScreenView(context, tag);
