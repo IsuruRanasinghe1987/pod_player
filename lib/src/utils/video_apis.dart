@@ -30,8 +30,8 @@ class VideoApis {
   ) async {
     try {
       final response = await _makeRequestHash(videoId, hash);
-      final jsonData = jsonDecode(response.body)['request']['files']
-          ['progressive'] as List<dynamic>;
+      final jsonData =
+          jsonDecode(response.body)['request']['files']['progressive'] as List<dynamic>;
       final progressiveUrls = List.generate(
         jsonData.length,
         (index) => VideoQalityUrls(
@@ -42,8 +42,7 @@ class VideoApis {
         ),
       );
       if (progressiveUrls.isEmpty) {
-        final jsonRes =
-            jsonDecode(response.body)['request']['files']['hls']['cdns'];
+        final jsonRes = jsonDecode(response.body)['request']['files']['hls']['cdns'];
         for (final element in (jsonRes as Map).entries.toList()) {
           progressiveUrls.add(
             VideoQalityUrls(
@@ -81,8 +80,7 @@ class VideoApis {
 
       final List<VideoQalityUrls> list = [];
       for (int i = 0; i < jsonData.length; i++) {
-        final String quality =
-            (jsonData[i]['rendition'] as String?)?.split('p').first ?? '0';
+        final String quality = (jsonData[i]['rendition'] as String?)?.split('p').first ?? '0';
         final int? number = int.tryParse(quality);
         if (number != null && number != 0) {
           list.add(
@@ -120,13 +118,12 @@ class VideoApis {
         );
         urls.add(
           VideoQalityUrls(
-            quality: 360,
+            quality: 240,
             url: url,
           ),
         );
       } else {
-        final manifest =
-            await yt.videos.streamsClient.getManifest(youtubeIdOrUrl);
+        final manifest = await yt.videos.streamsClient.getManifest(youtubeIdOrUrl);
         urls.addAll(
           manifest.muxed.map(
             (element) => VideoQalityUrls(

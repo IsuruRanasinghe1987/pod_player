@@ -12,8 +12,7 @@ class YoutubeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar:
-            AppBar(title: const Text('Load youtube video from quality urls')),
+        appBar: AppBar(title: const Text('Load youtube video from quality urls')),
         body: const YoutubeVideoViewer(),
       ),
     );
@@ -44,7 +43,7 @@ class _YoutubeVideoViewerState extends State<YoutubeVideoViewer> {
     controller = PodPlayerController(
       playVideoFrom: PlayVideoFrom.networkQualityUrls(videoUrls: urls!),
       podPlayerConfig: const PodPlayerConfig(
-        videoQualityPriority: [360],
+        videoQualityPriority: [144, 240, 360, 720, 1080],
       ),
     )..initialise();
   }
