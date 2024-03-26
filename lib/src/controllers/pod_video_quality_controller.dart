@@ -90,10 +90,10 @@ class _PodVideoQualityController extends _PodVideoController {
     for (final quality in qualityList) {
       urlWithQuality = vimeoOrVideoUrls.firstWhere(
         (url) => url.quality == quality,
-        orElse: () => fallback,
+        orElse: () => null,
       );
 
-      if (urlWithQuality != fallback) {
+      if (urlWithQuality != null) {
         break;
       }
     }
