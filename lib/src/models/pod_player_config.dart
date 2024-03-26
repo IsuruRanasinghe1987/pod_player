@@ -8,7 +8,7 @@ class PodPlayerConfig {
   /// from start to the end of this list. If all options informed are not
   /// available or if nothing is provided, 360p is used.
   ///
-  /// Default value is [1080, 720, 360]
+  /// Default value is [1080, 720, 360, 240, 144]
   final List<int> videoQualityPriority;
 
   const PodPlayerConfig({
@@ -16,7 +16,7 @@ class PodPlayerConfig {
     this.isLooping = false,
     this.forcedVideoFocus = false,
     this.wakelockEnabled = true,
-    this.videoQualityPriority = const [1080, 720, 360],
+    this.videoQualityPriority = const [1080, 720, 360, 240, 144],
   });
 
   PodPlayerConfig copyWith({
