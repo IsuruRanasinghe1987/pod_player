@@ -1,23 +1,18 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class _VideoOverlays extends StatelessWidget {
-  final String tag;
 
-  const _VideoOverlays({
-    required this.tag,
-  });
+  const _VideoOverlays();
 
   @override
   Widget build(BuildContext context) {
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     if (podCtr.overlayBuilder != null) {
       return GetBuilder<PodGetXVideoController>(
         id: 'update-all',
-        tag: tag,
         builder: (podCtr) {
           ///Custom overlay
           final progressBar = PodProgressBar(
-            tag: tag,
             podProgressBarConfig: podCtr.podProgressBarConfig,
           );
           final overlayOptions = OverLayOptions(
@@ -43,17 +38,16 @@ class _VideoOverlays extends StatelessWidget {
     } else {
       ///Built in overlay
       return GetBuilder<PodGetXVideoController>(
-        tag: tag,
         id: 'overlay',
         builder: (podCtr) {
           return AnimatedOpacity(
             duration: const Duration(milliseconds: 200),
             opacity: podCtr.isOverlayVisible ? 1 : 0,
-            child: Stack(
+            child: const Stack(
               fit: StackFit.passthrough,
               children: [
-                if (!kIsWeb) _MobileOverlay(tag: tag),
-                if (kIsWeb) _WebOverlay(tag: tag),
+                if (!kIsWeb) _MobileOverlay(),
+                if (kIsWeb) _WebOverlay(),
               ],
             ),
           );

@@ -9,7 +9,6 @@ import '../models/pod_progress_bar_config.dart';
 /// Renders progress bar for the video using custom paint.
 class PodProgressBar extends StatefulWidget {
   const PodProgressBar({
-    required this.tag,
     super.key,
     PodProgressBarConfig? podProgressBarConfig,
     this.onDragStart,
@@ -24,14 +23,13 @@ class PodProgressBar extends StatefulWidget {
   final void Function()? onDragEnd;
   final void Function()? onDragUpdate;
   final Alignment alignment;
-  final String tag;
 
   @override
   State<PodProgressBar> createState() => _PodProgressBarState();
 }
 
 class _PodProgressBarState extends State<PodProgressBar> {
-  late final _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
+  late final _podCtr = Get.find<PodGetXVideoController>();
   late VideoPlayerValue? videoPlayerValue = _podCtr.videoCtr?.value;
   bool _controllerWasPlaying = false;
 
@@ -51,7 +49,6 @@ class _PodProgressBarState extends State<PodProgressBar> {
     if (videoPlayerValue == null) return const SizedBox();
 
     return GetBuilder<PodGetXVideoController>(
-      tag: widget.tag,
       id: 'video-progress',
       builder: (podCtr) {
         videoPlayerValue = podCtr.videoCtr?.value;
@@ -117,7 +114,6 @@ class _PodProgressBarState extends State<PodProgressBar> {
           child: Align(
             alignment: widget.alignment,
             child: GetBuilder<PodGetXVideoController>(
-              tag: widget.tag,
               id: 'overlay',
               builder: (podCtr) => CustomPaint(
                 painter: _ProgressBarPainter(

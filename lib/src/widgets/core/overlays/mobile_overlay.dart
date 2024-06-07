@@ -1,29 +1,24 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class _MobileOverlay extends StatelessWidget {
-  final String tag;
 
-  const _MobileOverlay({
-    required this.tag,
-  });
+  const _MobileOverlay();
 
   @override
   Widget build(BuildContext context) {
     const overlayColor = Colors.black38;
     const itemColor = Colors.white;
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     return Stack(
       alignment: Alignment.center,
       children: [
         _VideoGestureDetector(
-          tag: tag,
           child: ColoredBox(
             color: overlayColor,
             child: Row(
               children: [
                 Expanded(
                   child: DoubleTapIcon(
-                    tag: tag,
                     isForward: false,
                     height: double.maxFinite,
                     onDoubleTap: _isRtl()
@@ -31,16 +26,15 @@ class _MobileOverlay extends StatelessWidget {
                         : podCtr.onLeftDoubleTap,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: double.infinity,
                   child: Center(
-                    child: _AnimatedPlayPauseIcon(tag: tag, size: 42),
+                    child: _AnimatedPlayPauseIcon( size: 42),
                   ),
                 ),
                 Expanded(
                   child: DoubleTapIcon(
                     isForward: true,
-                    tag: tag,
                     height: double.maxFinite,
                     onDoubleTap: _isRtl()
                         ? podCtr.onLeftDoubleTap
@@ -78,9 +72,9 @@ class _MobileOverlay extends StatelessWidget {
             ],
           ),
         ),
-        Align(
+        const Align(
           alignment: Alignment.bottomLeft,
-          child: _MobileOverlayBottomControlles(tag: tag),
+          child: _MobileOverlayBottomControlles(),
         ),
       ],
     );
@@ -107,7 +101,7 @@ class _MobileOverlay extends StatelessWidget {
   void _bottomSheet(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
-      builder: (context) => SafeArea(child: _MobileBottomSheet(tag: tag)),
+      builder: (context) => const SafeArea(child: _MobileBottomSheet()),
     );
   }
 }

@@ -2,10 +2,8 @@ part of 'package:pod_player/src/pod_player.dart';
 
 class _AnimatedPlayPauseIcon extends StatefulWidget {
   final double? size;
-  final String tag;
 
   const _AnimatedPlayPauseIcon({
-    required this.tag,
     this.size,
   });
 
@@ -19,7 +17,7 @@ class _AnimatedPlayPauseIconState extends State<_AnimatedPlayPauseIcon>
   late PodGetXVideoController _podCtr;
   @override
   void initState() {
-    _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
+    _podCtr = Get.find<PodGetXVideoController>();
     _payCtr = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 450),
@@ -52,11 +50,9 @@ class _AnimatedPlayPauseIconState extends State<_AnimatedPlayPauseIcon>
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PodGetXVideoController>(
-      tag: widget.tag,
       id: 'overlay',
       builder: (podCtr) {
         return GetBuilder<PodGetXVideoController>(
-          tag: widget.tag,
           id: 'podVideoState',
           builder: (f) => MaterialIconButton(
             toolTipMesg: f.isvideoPlaying

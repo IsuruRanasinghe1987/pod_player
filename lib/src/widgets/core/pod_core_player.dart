@@ -3,17 +3,15 @@ part of 'package:pod_player/src/pod_player.dart';
 class _PodCoreVideoPlayer extends StatelessWidget {
   final VideoPlayerController videoPlayerCtr;
   final double videoAspectRatio;
-  final String tag;
 
   const _PodCoreVideoPlayer({
     required this.videoPlayerCtr,
     required this.videoAspectRatio,
-    required this.tag,
   });
 
   @override
   Widget build(BuildContext context) {
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     return Builder(
       builder: (ctrx) {
         return RawKeyboardListener(
@@ -24,7 +22,6 @@ class _PodCoreVideoPlayer extends StatelessWidget {
           onKey: (value) => podCtr.onKeyBoardEvents(
             event: value,
             appContext: ctrx,
-            tag: tag,
           ),
           child: Stack(
             fit: StackFit.expand,
@@ -36,10 +33,8 @@ class _PodCoreVideoPlayer extends StatelessWidget {
                 ),
               ),
               GetBuilder<PodGetXVideoController>(
-                tag: tag,
                 id: 'podVideoState',
                 builder: (_) => GetBuilder<PodGetXVideoController>(
-                  tag: tag,
                   id: 'video-progress',
                   builder: (podCtr) {
                     if (podCtr.videoThumbnail == null) {
@@ -68,10 +63,9 @@ class _PodCoreVideoPlayer extends StatelessWidget {
                   },
                 ),
               ),
-              _VideoOverlays(tag: tag),
+              const _VideoOverlays(),
               IgnorePointer(
                 child: GetBuilder<PodGetXVideoController>(
-                  tag: tag,
                   id: 'podVideoState',
                   builder: (podCtr) {
                     final loadingWidget = podCtr.onLoading?.call(context) ??
@@ -125,12 +119,10 @@ class _PodCoreVideoPlayer extends StatelessWidget {
               ),
               if (!kIsWeb)
                 GetBuilder<PodGetXVideoController>(
-                  tag: tag,
                   id: 'full-screen',
                   builder: (podCtr) => podCtr.isFullScreen
                       ? const SizedBox()
                       : GetBuilder<PodGetXVideoController>(
-                          tag: tag,
                           id: 'overlay',
                           builder: (podCtr) => podCtr.isOverlayVisible ||
                                   !podCtr.alwaysShowProgressBar
@@ -138,7 +130,6 @@ class _PodCoreVideoPlayer extends StatelessWidget {
                               : Align(
                                   alignment: Alignment.bottomCenter,
                                   child: PodProgressBar(
-                                    tag: tag,
                                     alignment: Alignment.bottomCenter,
                                     podProgressBarConfig:
                                         podCtr.podProgressBarConfig,

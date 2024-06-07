@@ -12,7 +12,6 @@ import 'pod_getx_video_controller.dart';
 
 class PodPlayerController {
   late PodGetXVideoController _ctr;
-  late String getTag;
   bool _isCtrInitialised = false;
 
   Object? _initializationError;
@@ -29,9 +28,8 @@ class PodPlayerController {
   }
 
   void _init() {
-    getTag = UniqueKey().toString();
     Get.config(enableLog: PodVideoPlayer.enableGetxLogs);
-    _ctr = Get.put(PodGetXVideoController(), permanent: true, tag: getTag)
+    _ctr = Get.put(PodGetXVideoController(), permanent: true)
       ..config(
         playVideoFrom: playVideoFrom,
         playerConfig: podPlayerConfig,
@@ -49,12 +47,8 @@ class PodPlayerController {
       try {
         if (!_isCtrInitialised) {
           await _ctr.videoInit();
-          podLog('$getTag Pod player Initialized');
-        } else {
-          podLog('$getTag Pod Player Controller Already Initialized');
         }
       } catch (error) {
-        podLog('$getTag Pod Player Controller failed to initialize');
         _initializationError = error;
       }
     });
@@ -169,9 +163,7 @@ class PodPlayerController {
     if (podPlayerConfig.wakelockEnabled) WakelockPlus.disable();
     Get.delete<PodGetXVideoController>(
       force: true,
-      tag: getTag,
     );
-    podLog('$getTag Pod player Disposed');
   }
 
   /// used to change the video
@@ -229,7 +221,7 @@ class PodPlayerController {
   /// orientation by yourself.
   void enableFullScreen() {
     uni_html.document.documentElement?.requestFullscreen();
-    _ctr.enableFullScreen(getTag);
+    _ctr.enableFullScreen();
   }
 
   /// Disables fullscreen mode.
@@ -240,7 +232,7 @@ class PodPlayerController {
     uni_html.document.exitFullscreen();
 
     if (!_ctr.isWebPopupOverlayOpen) {
-      _ctr.disableFullScreen(context, getTag);
+      _ctr.disableFullScreen(context);
     }
   }
 

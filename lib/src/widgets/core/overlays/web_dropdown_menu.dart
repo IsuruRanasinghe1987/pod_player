@@ -1,11 +1,8 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class _WebSettingsDropdown extends StatefulWidget {
-  final String tag;
 
-  const _WebSettingsDropdown({
-    required this.tag,
-  });
+  const _WebSettingsDropdown();
 
   @override
   State<_WebSettingsDropdown> createState() => _WebSettingsDropdownState();
@@ -19,7 +16,6 @@ class _WebSettingsDropdownState extends State<_WebSettingsDropdown> {
         focusColor: Colors.white,
       ),
       child: GetBuilder<PodGetXVideoController>(
-        tag: widget.tag,
         builder: (podCtr) {
           return MaterialIconButton(
             toolTipMesg: podCtr.podPlayerLabels.settings,

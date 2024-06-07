@@ -159,7 +159,7 @@ class _PodVideoController extends _PodUiController {
     update(['update-all']);
   }
 
-  Future<void> enableFullScreen(String tag) async {
+  Future<void> enableFullScreen() async {
     podLog('-full-screen-enable-entred');
     if (!isFullScreen) {
       if (onToggleFullScreen != null) {
@@ -176,7 +176,7 @@ class _PodVideoController extends _PodUiController {
         ]);
       }
 
-      _enableFullScreenView(tag);
+      _enableFullScreenView();
       isFullScreen = true;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         update(['full-screen']);
@@ -186,8 +186,7 @@ class _PodVideoController extends _PodUiController {
   }
 
   Future<void> disableFullScreen(
-    BuildContext context,
-    String tag, {
+    BuildContext context, {
     bool enablePop = true,
   }) async {
     podLog('-full-screen-disable-entred');
@@ -210,19 +209,19 @@ class _PodVideoController extends _PodUiController {
         ],);
       }
 
-      if (enablePop) _exitFullScreenView(context, tag);
+      if (enablePop) _exitFullScreenView(context);
       isFullScreen = false;
       update(['full-screen']);
       update(['update-all']);
     }
   }
 
-  void _exitFullScreenView(BuildContext context, String tag) {
+  void _exitFullScreenView(BuildContext context) {
     podLog('popped-full-screen');
     Navigator.of(fullScreenContext).pop();
   }
 
-  void _enableFullScreenView(String tag) {
+  void _enableFullScreenView() {
     if (!isFullScreen) {
       podLog('full-screen-enabled');
 
@@ -230,8 +229,7 @@ class _PodVideoController extends _PodUiController {
         mainContext,
         PageRouteBuilder<dynamic>(
           fullscreenDialog: true,
-          pageBuilder: (BuildContext context, _, __) => FullScreenView(
-            tag: tag,
+          pageBuilder: (BuildContext context, _, __) => const FullScreenView(
           ),
           reverseTransitionDuration: const Duration(milliseconds: 400),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>

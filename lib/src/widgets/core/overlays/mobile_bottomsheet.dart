@@ -1,16 +1,12 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class _MobileBottomSheet extends StatelessWidget {
-  final String tag;
 
-  const _MobileBottomSheet({
-    required this.tag,
-  });
+  const _MobileBottomSheet();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PodGetXVideoController>(
-      tag: tag,
       builder: (podCtr) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -24,9 +20,8 @@ class _MobileBottomSheet extends StatelessWidget {
                 Timer(const Duration(milliseconds: 100), () {
                   showModalBottomSheet<void>(
                     context: context,
-                    builder: (context) => SafeArea(
+                    builder: (context) => const SafeArea(
                       child: _VideoQualitySelectorMob(
-                        tag: tag,
                         onTap: null,
                       ),
                     ),
@@ -58,9 +53,8 @@ class _MobileBottomSheet extends StatelessWidget {
                 showModalBottomSheet<void>(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => SafeArea(
+                  builder: (context) => const SafeArea(
                     child: _VideoPlaybackSelectorMob(
-                      tag: tag,
                       onTap: null,
                     ),
                   ),
@@ -117,16 +111,14 @@ class _MobileBottomSheet extends StatelessWidget {
 
 class _VideoQualitySelectorMob extends StatelessWidget {
   final void Function()? onTap;
-  final String tag;
 
   const _VideoQualitySelectorMob({
     required this.onTap,
-    required this.tag,
   });
 
   @override
   Widget build(BuildContext context) {
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -149,16 +141,14 @@ class _VideoQualitySelectorMob extends StatelessWidget {
 
 class _VideoPlaybackSelectorMob extends StatelessWidget {
   final void Function()? onTap;
-  final String tag;
 
   const _VideoPlaybackSelectorMob({
     required this.onTap,
-    required this.tag,
   });
 
   @override
   Widget build(BuildContext context) {
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -179,11 +169,8 @@ class _VideoPlaybackSelectorMob extends StatelessWidget {
 }
 
 class _MobileOverlayBottomControlles extends StatelessWidget {
-  final String tag;
 
-  const _MobileOverlayBottomControlles({
-    required this.tag,
-  });
+  const _MobileOverlayBottomControlles();
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +178,6 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
     const itemColor = Colors.white;
 
     return GetBuilder<PodGetXVideoController>(
-      tag: tag,
       id: 'full-screen',
       builder: (podCtr) => Column(
         mainAxisSize: MainAxisSize.min,
@@ -200,7 +186,6 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
             children: [
               const SizedBox(width: 12),
               GetBuilder<PodGetXVideoController>(
-                tag: tag,
                 id: 'video-progress',
                 builder: (podCtr) {
                   return Row(
@@ -232,9 +217,9 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
                 onPressed: () {
                   if (podCtr.isOverlayVisible) {
                     if (podCtr.isFullScreen) {
-                      podCtr.disableFullScreen(context, tag);
+                      podCtr.disableFullScreen(context);
                     } else {
-                      podCtr.enableFullScreen(tag);
+                      podCtr.enableFullScreen();
                     }
                   } else {
                     podCtr.toggleVideoOverlay();
@@ -249,7 +234,6 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
             ],
           ),
           GetBuilder<PodGetXVideoController>(
-            tag: tag,
             id: 'overlay',
             builder: (podCtr) {
               if (podCtr.isFullScreen) {
@@ -258,7 +242,6 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
                   child: Visibility(
                     visible: podCtr.isOverlayVisible,
                     child: PodProgressBar(
-                      tag: tag,
                       alignment: Alignment.topCenter,
                       podProgressBarConfig: podCtr.podProgressBarConfig,
                     ),
@@ -266,7 +249,6 @@ class _MobileOverlayBottomControlles extends StatelessWidget {
                 );
               }
               return PodProgressBar(
-                tag: tag,
                 alignment: Alignment.bottomCenter,
                 podProgressBarConfig: podCtr.podProgressBarConfig,
               );

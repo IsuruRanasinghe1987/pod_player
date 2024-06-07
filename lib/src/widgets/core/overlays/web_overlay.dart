@@ -1,37 +1,31 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class _WebOverlay extends StatelessWidget {
-  final String tag;
-  const _WebOverlay({
-    required this.tag,
-  });
+  const _WebOverlay();
 
   @override
   Widget build(BuildContext context) {
     const overlayColor = Colors.black38;
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     return Stack(
       children: [
         Positioned.fill(
           child: _VideoGestureDetector(
-            tag: tag,
             onTap: podCtr.togglePlayPauseVideo,
-            onDoubleTap: () => podCtr.toggleFullScreenOnWeb(context, tag),
+            onDoubleTap: () => podCtr.toggleFullScreenOnWeb(context),
             child: const ColoredBox(
               color: overlayColor,
               child: SizedBox.expand(),
             ),
           ),
         ),
-        Align(
+        const Align(
           alignment: Alignment.bottomLeft,
           child: _WebOverlayBottomControlles(
-            tag: tag,
           ),
         ),
         Positioned.fill(
           child: GetBuilder<PodGetXVideoController>(
-            tag: tag,
             id: 'double-tap',
             builder: (podCtr) {
               return Row(
@@ -40,7 +34,6 @@ class _WebOverlay extends StatelessWidget {
                     child: IgnorePointer(
                       child: DoubleTapIcon(
                         onDoubleTap: () {},
-                        tag: tag,
                         isForward: false,
                         iconOnly: true,
                       ),
@@ -50,7 +43,6 @@ class _WebOverlay extends StatelessWidget {
                     child: IgnorePointer(
                       child: DoubleTapIcon(
                         onDoubleTap: () {},
-                        tag: tag,
                         isForward: true,
                         iconOnly: true,
                       ),
@@ -68,15 +60,12 @@ class _WebOverlay extends StatelessWidget {
 }
 
 class _WebOverlayBottomControlles extends StatelessWidget {
-  final String tag;
 
-  const _WebOverlayBottomControlles({
-    required this.tag,
-  });
+  const _WebOverlayBottomControlles();
 
   @override
   Widget build(BuildContext context) {
-    final podCtr = Get.find<PodGetXVideoController>(tag: tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     const durationTextStyle = TextStyle(color: Colors.white70);
     const itemColor = Colors.white;
 
@@ -89,7 +78,6 @@ class _WebOverlayBottomControlles extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             PodProgressBar(
-              tag: tag,
               podProgressBarConfig: podCtr.podProgressBarConfig,
             ),
             Row(
@@ -101,9 +89,8 @@ class _WebOverlayBottomControlles extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        _AnimatedPlayPauseIcon(tag: tag),
+                        const _AnimatedPlayPauseIcon(),
                         GetBuilder<PodGetXVideoController>(
-                          tag: tag,
                           id: 'volume',
                           builder: (podCtr) => MaterialIconButton(
                             toolTipMesg: podCtr.isMute
@@ -121,7 +108,6 @@ class _WebOverlayBottomControlles extends StatelessWidget {
                           ),
                         ),
                         GetBuilder<PodGetXVideoController>(
-                          tag: tag,
                           id: 'video-progress',
                           builder: (podCtr) {
                             return Row(
@@ -157,7 +143,7 @@ class _WebOverlayBottomControlles extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Row(
                       children: [
-                        _WebSettingsDropdown(tag: tag),
+                        const _WebSettingsDropdown(),
                         MaterialIconButton(
                           toolTipMesg: podCtr.isFullScreen
                               ? podCtr.podPlayerLabels.exitFullScreen ??
@@ -192,18 +178,18 @@ class _WebOverlayBottomControlles extends StatelessWidget {
       if (podCtr.isFullScreen) {
         if (kIsWeb) {
           uni_html.document.exitFullscreen();
-          podCtr.disableFullScreen(context, tag);
+          podCtr.disableFullScreen(context);
           return;
         } else {
-          podCtr.disableFullScreen(context, tag);
+          podCtr.disableFullScreen(context);
         }
       } else {
         if (kIsWeb) {
           uni_html.document.documentElement?.requestFullscreen();
-          podCtr.enableFullScreen(tag);
+          podCtr.enableFullScreen();
           return;
         } else {
-          podCtr.enableFullScreen(tag);
+          podCtr.enableFullScreen();
         }
       }
     } else {

@@ -80,8 +80,7 @@ class PodVideoPlayer extends StatefulWidget {
   static bool enableGetxLogs = false;
 
   void addToUiController() {
-    Get.find<PodGetXVideoController>(tag: controller.getTag)
-
+    Get.find<PodGetXVideoController>()
       ///add to ui controller
       ..podPlayerLabels = podPlayerLabels
       ..alwaysShowProgressBar = alwaysShowProgressBar
@@ -101,15 +100,12 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
     with TickerProviderStateMixin {
   late PodGetXVideoController _podCtr;
 
-  // late String tag;
   @override
   void initState() {
     super.initState();
-    // tag = widget.controller?.tag ?? UniqueKey().toString();
     _podCtr = Get.put(
       PodGetXVideoController(),
       permanent: true,
-      tag: widget.controller.getTag,
     )..isVideoUiBinded = true;
     if (_podCtr.wasVideoPlayingOnUiDispose ?? false) {
       _podCtr.podVideoStateChanger(PodVideoState.playing, updateUi: false);
@@ -119,7 +115,6 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
         _podCtr.keyboardFocusWeb = FocusNode();
         _podCtr.keyboardFocusWeb?.addListener(_podCtr.keyboadListner);
       }
-      //to disable mouse right click
       uni_html.document.onContextMenu.listen((event) => event.preventDefault());
     }
   }
@@ -179,7 +174,6 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       ),
     );
     return GetBuilder<PodGetXVideoController>(
-      tag: widget.controller.getTag,
       builder: (_) {
         _frameAspectRatio = widget.matchFrameAspectRatioToVideo
             ? _podCtr.videoCtr?.value.aspectRatio ?? widget.frameAspectRatio
@@ -188,7 +182,6 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
           child: ColoredBox(
             color: widget.backgroundColor ?? Colors.black,
             child: GetBuilder<PodGetXVideoController>(
-              tag: widget.controller.getTag,
               id: 'errorState',
               builder: (podCtr) {
                 /// Check if has any error
@@ -248,14 +241,12 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
         : widget.videoAspectRatio;
     if (kIsWeb) {
       return GetBuilder<PodGetXVideoController>(
-        tag: widget.controller.getTag,
         id: 'full-screen',
         builder: (podCtr) {
           if (podCtr.isFullScreen) return _thumbnailAndLoadingWidget();
           return _PodCoreVideoPlayer(
             videoPlayerCtr: podCtr.videoCtr!,
             videoAspectRatio: videoAspectRatio,
-            tag: widget.controller.getTag,
           );
         },
       );
@@ -263,7 +254,6 @@ class _PodVideoPlayerState extends State<PodVideoPlayer>
       return _PodCoreVideoPlayer(
         videoPlayerCtr: _podCtr.videoCtr!,
         videoAspectRatio: videoAspectRatio,
-        tag: widget.controller.getTag,
       );
     }
   }

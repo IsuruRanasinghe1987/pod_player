@@ -17,28 +17,23 @@ class ListOfVideosApp extends StatelessWidget {
       home: ListOfVideosScreen(
         controllers: [
           PodPlayerController(
-            playVideoFrom: PlayVideoFrom.youtube(
-                'https://www.youtube.com/watch?v=bk6Xst6euQk'),
+            playVideoFrom: PlayVideoFrom.youtube('https://www.youtube.com/watch?v=bk6Xst6euQk'),
             podPlayerConfig: const PodPlayerConfig(autoPlay: false),
           ),
           PodPlayerController(
-            playVideoFrom:
-                PlayVideoFrom.youtube('https://youtu.be/A3ltMaM6noM'),
+            playVideoFrom: PlayVideoFrom.youtube('https://youtu.be/A3ltMaM6noM'),
             podPlayerConfig: const PodPlayerConfig(autoPlay: false),
           ),
           PodPlayerController(
-            playVideoFrom: PlayVideoFrom.youtube(
-                'https://www.youtube.com/watch?v=TjBA6jy4ako'),
+            playVideoFrom: PlayVideoFrom.youtube('https://www.youtube.com/watch?v=TjBA6jy4ako'),
             podPlayerConfig: const PodPlayerConfig(autoPlay: false),
           ),
           PodPlayerController(
-            playVideoFrom: PlayVideoFrom.youtube(
-                'https://www.youtube.com/watch?v=HqFgRHTuDyc'),
+            playVideoFrom: PlayVideoFrom.youtube('https://www.youtube.com/watch?v=HqFgRHTuDyc'),
             podPlayerConfig: const PodPlayerConfig(autoPlay: false),
           ),
           PodPlayerController(
-            playVideoFrom: PlayVideoFrom.youtube(
-                'https://www.youtube.com/watch?v=GpxD-T060RY'),
+            playVideoFrom: PlayVideoFrom.youtube('https://www.youtube.com/watch?v=GpxD-T060RY'),
             podPlayerConfig: const PodPlayerConfig(autoPlay: false),
           ),
         ],
@@ -50,8 +45,7 @@ class ListOfVideosApp extends StatelessWidget {
 class ListOfVideosScreen extends StatelessWidget {
   final List<PodPlayerController> controllers;
 
-  const ListOfVideosScreen({Key? key, required this.controllers})
-      : super(key: key);
+  const ListOfVideosScreen({Key? key, required this.controllers}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +93,7 @@ class VideoViewerState extends State<VideoViewer> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 80),
       child: VisibilityDetector(
-        key: Key(widget.controller.getTag),
+        key: Key(UniqueKey().toString()),
         onVisibilityChanged: (VisibilityInfo info) async {
           // print(widget.controllers.any((element) => element.isVideoPlaying));
           // print(info.visibleFraction);
@@ -128,9 +122,7 @@ class VideoViewerState extends State<VideoViewer> {
                     const SizedBox(width: 10),
                     ElevatedButton(
                       child: Text(
-                        options.podVideoState == PodVideoState.paused
-                            ? 'Play'
-                            : 'Pause',
+                        options.podVideoState == PodVideoState.paused ? 'Play' : 'Pause',
                       ),
                       onPressed: () {
                         widget.controller.togglePlayPause();

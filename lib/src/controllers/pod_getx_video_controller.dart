@@ -204,7 +204,6 @@ class PodGetXVideoController extends _PodGesturesController {
   void onKeyBoardEvents({
     required RawKeyEvent event,
     required BuildContext appContext,
-    required String tag,
   }) {
     if (kIsWeb) {
       if (event.isKeyPressed(LogicalKeyboardKey.space)) {
@@ -225,13 +224,13 @@ class PodGetXVideoController extends _PodGesturesController {
       }
       if (event.isKeyPressed(LogicalKeyboardKey.keyF) &&
           event.logicalKey.keyLabel == 'F') {
-        toggleFullScreenOnWeb(appContext, tag);
+        toggleFullScreenOnWeb(appContext);
       }
       if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
         if (isFullScreen) {
           uni_html.document.exitFullscreen();
           if (!isWebPopupOverlayOpen) {
-            disableFullScreen(appContext, tag);
+            disableFullScreen(appContext);
           }
         }
       }
@@ -240,15 +239,15 @@ class PodGetXVideoController extends _PodGesturesController {
     }
   }
 
-  void toggleFullScreenOnWeb(BuildContext context, String tag) {
+  void toggleFullScreenOnWeb(BuildContext context) {
     if (isFullScreen) {
       uni_html.document.exitFullscreen();
       if (!isWebPopupOverlayOpen) {
-        disableFullScreen(context, tag);
+        disableFullScreen(context);
       }
     } else {
       uni_html.document.documentElement?.requestFullscreen();
-      enableFullScreen(tag);
+      enableFullScreen();
     }
   }
 

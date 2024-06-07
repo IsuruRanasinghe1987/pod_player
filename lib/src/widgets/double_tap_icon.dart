@@ -6,7 +6,6 @@ import 'doubble_tap_effect.dart';
 
 class DoubleTapIcon extends StatefulWidget {
   final void Function() onDoubleTap;
-  final String tag;
   final bool iconOnly;
   final bool isForward;
   final double height;
@@ -14,7 +13,6 @@ class DoubleTapIcon extends StatefulWidget {
 
   const DoubleTapIcon({
     required this.onDoubleTap,
-    required this.tag,
     required this.isForward,
     super.key,
     this.iconOnly = false,
@@ -44,7 +42,7 @@ class _DoubleTapIconState extends State<DoubleTapIcon>
         curve: Curves.easeInOut,
       ),
     );
-    final podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
+    final podCtr = Get.find<PodGetXVideoController>();
     if (widget.iconOnly && !widget.isForward) {
       podCtr.addListenerId('double-tap-left', _onDoubleTap);
     }
@@ -55,7 +53,7 @@ class _DoubleTapIconState extends State<DoubleTapIcon>
 
   @override
   void dispose() {
-    final podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
+    final podCtr = Get.find<PodGetXVideoController>();
 
     if (widget.iconOnly && !widget.isForward) {
       podCtr.removeListenerId('double-tap-left', _onDoubleTap);
@@ -144,7 +142,6 @@ class _DoubleTapIconState extends State<DoubleTapIcon>
                   ),
                 ),
                 GetBuilder<PodGetXVideoController>(
-                  tag: widget.tag,
                   id: 'double-tap',
                   builder: (podCtr) {
                     if (widget.isForward && podCtr.isRightDbTapIconVisible) {

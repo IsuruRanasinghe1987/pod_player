@@ -1,9 +1,7 @@
 part of 'package:pod_player/src/pod_player.dart';
 
 class FullScreenView extends StatefulWidget {
-  final String tag;
   const FullScreenView({
-    required this.tag,
     super.key,
   });
 
@@ -15,7 +13,7 @@ class _FullScreenViewState extends State<FullScreenView> with TickerProviderStat
   late PodGetXVideoController _podCtr;
   @override
   void initState() {
-    _podCtr = Get.find<PodGetXVideoController>(tag: widget.tag);
+    _podCtr = Get.find<PodGetXVideoController>();
     _podCtr.fullScreenContext = context;
     _podCtr.keyboardFocusWeb?.removeListener(_podCtr.keyboadListner);
 
@@ -43,17 +41,15 @@ class _FullScreenViewState extends State<FullScreenView> with TickerProviderStat
         if (kIsWeb) {
           await _podCtr.disableFullScreen(
             context,
-            widget.tag,
             enablePop: false,
           );
         }
-        if (!kIsWeb) await _podCtr.disableFullScreen(context, widget.tag);
+        if (!kIsWeb) await _podCtr.disableFullScreen(context);
         return true;
       },
       child: Scaffold(
         backgroundColor: Colors.black,
         body: GetBuilder<PodGetXVideoController>(
-          tag: widget.tag,
           builder: (podCtr) => Center(
             child: ColoredBox(
               color: Colors.black,
@@ -65,7 +61,6 @@ class _FullScreenViewState extends State<FullScreenView> with TickerProviderStat
                       ? loadingWidget
                       : podCtr.videoCtr!.value.isInitialized
                           ? _PodCoreVideoPlayer(
-                              tag: widget.tag,
                               videoPlayerCtr: podCtr.videoCtr!,
                               videoAspectRatio: podCtr.videoCtr?.value.aspectRatio ?? 16 / 9,
                             )
