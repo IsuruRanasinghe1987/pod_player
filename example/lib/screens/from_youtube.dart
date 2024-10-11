@@ -14,7 +14,7 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
   @override
   void initState() {
     controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.youtube('https://youtu.be/A3ltMaM6noM'),
+      playVideoFrom: PlayVideoFrom.youtube('https://www.youtube.com/watch?v=BqQxZ7c_ZJk'),
       podPlayerConfig: const PodPlayerConfig(
         videoQualityPriority: [144, 240, 360, 720, 1080],
         autoPlay: false,
@@ -40,12 +40,6 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
             children: [
               PodVideoPlayer(
                 controller: controller,
-                videoThumbnail: const DecorationImage(
-                  image: NetworkImage(
-                    'https://images.unsplash.com/photo-1569317002804-ab77bcf1bce4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dW5zcGxhc2h8ZW58MHx8MHx8&w=1000&q=80',
-                  ),
-                  fit: BoxFit.cover,
-                ),
               ),
               const SizedBox(height: 40),
               _loadVideoFromUrl()
@@ -66,7 +60,7 @@ class _PlayVideoFromVimeoIdState extends State<PlayVideoFromYoutube> {
             decoration: const InputDecoration(
               labelText: 'Enter youtube url/id',
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              hintText: 'https://youtu.be/A3ltMaM6noM',
+              hintText: 'https://www.youtube.com/watch?v=BqQxZ7c_ZJk',
               border: OutlineInputBorder(),
             ),
           ),

@@ -37,7 +37,7 @@ class _YoutubeVideoViewerState extends State<YoutubeVideoViewer> {
 
   void loadVideo() async {
     final urls = await PodPlayerController.getYoutubeUrls(
-      'https://youtu.be/A3ltMaM6noM',
+      'https://www.youtube.com/watch?v=BqQxZ7c_ZJk',
     );
     setState(() => isLoading = false);
     controller = PodPlayerController(

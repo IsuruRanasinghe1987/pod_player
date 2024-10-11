@@ -81,6 +81,7 @@ class PodVideoPlayer extends StatefulWidget {
 
   void addToUiController() {
     Get.find<PodGetXVideoController>()
+
       ///add to ui controller
       ..podPlayerLabels = podPlayerLabels
       ..alwaysShowProgressBar = alwaysShowProgressBar
@@ -96,8 +97,7 @@ class PodVideoPlayer extends StatefulWidget {
   State<PodVideoPlayer> createState() => _PodVideoPlayerState();
 }
 
-class _PodVideoPlayerState extends State<PodVideoPlayer>
-    with TickerProviderStateMixin {
+class _PodVideoPlayerState extends State<PodVideoPlayer> with TickerProviderStateMixin {
   late PodGetXVideoController _podCtr;
 
   @override
